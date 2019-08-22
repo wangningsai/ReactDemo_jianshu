@@ -1,4 +1,6 @@
 import React, { Component,Fragment } from 'react'
+import TodoItem from './TodoItem'
+import './index.css'
 
 class TodoList extends Component {
 
@@ -7,59 +9,80 @@ class TodoList extends Component {
 		super(props);
 		this.state = {
 			inputValue : '',
-			list:['学习英文','学习React']
+			list:[]
 		}
+		this.handleInputChange = this.handleInputChange.bind(this);
+		this.handleBtnClick = this.handleBtnClick.bind(this);
+		this.handleClickDelete = this.handleClickDelete.bind(this);
 	}
 
 	render() {
 		return (
 			<Fragment>	
 				<div> 
+					<label htmlFor = "insertArea">
+					输入内容
+					</label>
 					<input 
+						id = "insertArea"
+						className = 'input'
 						value = {this.state.inputValue}
-						onChange = {this.handleInputChange.bind(this)}
+						onChange = { this.handleInputChange }
 					/> 
-					<button onClick = {this.handleBtnClick.bind(this)}> 提交 </button>
+					<button onClick = { this.handleBtnClick }>  提交  </button>
+
 				</div>
 
 				<ul>
-					{
-						this.state.list.map((item, index) => {
-
-							return <li 
-								key = {index}
-							  onClick = {this.handleClickDelete.bind(this, index)}>
-							{item}
-							</li>
-						})
-					}
+					{ this.getTodoItem() }
 				</ul>
 
 			</Fragment>
 			)
 	}
 
-	handleInputChange(e) {
+	getTodoItem() {
 
-		this.setState({
-			inputValue: e.target.value
+		return  this.state.list.map((item, index) => {
+			return (
+				<TodoItem 
+						key = { index }
+						content = { item } 
+						index = { index } 
+						deleteItem = { this.handleClickDelete }
+					/>
+			)
 		})
 	}
 
+	handleInputChange(e) {
+
+		const value = e.target.value;
+		this.setState(() => ({
+			inputValue: value
+
+		}))
+	}
+
 	handleBtnClick() {
-		this.setState({
-			list:[...this.state.list,this.state.inputValue],
+
+		this.setState((prevState) => ({ 
+
+			list:[...prevState.list,prevState.inputValue],
 			inputValue:''
-		})
+
+		}))
 	}
 
 	handleClickDelete(index) {
 
-		const list = [...this.state.list];
-		list.splice(index,1)
+		this.setState((prevState) => {
 
-		this.setState({
-			list:list
+			const list = [...prevState.list];
+			list.splice(index,1)
+
+			return { list }
+
 		})
 		
 
