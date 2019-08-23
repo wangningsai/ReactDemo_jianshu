@@ -21,7 +21,7 @@ class TodoList extends Component {
 			<Fragment>	
 				<div> 
 					<label htmlFor = "insertArea">
-					输入内容
+						输入内容
 					</label>
 					<input 
 						id = "insertArea"
