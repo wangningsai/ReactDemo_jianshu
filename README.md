@@ -67,4 +67,6 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
+```生命周期函数是指：某一时刻组件会自动调用执行的函数
  
+
